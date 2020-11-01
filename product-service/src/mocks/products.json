@@ -1,0 +1,58 @@
+[
+  {
+    "id": "e1c9e732-c589-40c5-8623-d61b8f0b310b",
+    "title": "Orchids",
+    "description": "Perfect white orchid flowers",
+    "price": 17,
+    "count": 24
+  },
+  {
+    "id": "08ec5ecb-1dd4-4ade-adb9-483589760b32",
+    "title": "Hydrangeas",
+    "description": "Gentle bouquet of hydrangeas is indescribably beautiful",
+    "price": 45,
+    "count": 7
+  },
+  {
+    "id": "4e5417c6-42d3-4d45-9451-25f46789efa5",
+    "title": "Alstroemerias",
+    "description": "Particoloured alstromeries",
+    "price": 22,
+    "count": 19
+  },
+  {
+    "id": "4cfd706c-9729-4de3-adb4-714401370159",
+    "title": "Pink roses",
+    "description": "Beautiful bouquet of pink roses",
+    "price": 18,
+    "count": 56
+  },
+  {
+    "id": "50da92e5-6aa2-4012-b996-c59fa79a808e",
+    "title": "Red roses",
+    "description": "Beautiful bouquet of red roses",
+    "price": 18,
+    "count": 44
+  },
+  {
+    "id": "ea18f8de-97c4-4058-bddc-891234269705",
+    "title": "White roses",
+    "description": "Beautiful bouquet of white roses",
+    "price": 12,
+    "count": 105
+  },
+  {
+    "id": "52914e2d-c427-4358-840a-777efff5bf53",
+    "title": "Pink gerberas",
+    "description": "Modern and stylish bouquet of pink gerberas",
+    "price": 37,
+    "count": 81
+  },
+  {
+    "id": "42ae3e68-ff09-47e1-9351-8943ec3f01c3",
+    "title": "White camomile chrysanthemums",
+    "description": "Original bouquet of white camomile chrysanthemums",
+    "price": 28,
+    "count": 9
+  }
+]

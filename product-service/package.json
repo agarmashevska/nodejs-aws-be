@@ -1,14 +1,16 @@
 {
-  "name": "nodejs-aws-be",
+  "name": "product-service",
   "version": "1.0.0",
-  "description": "nodejs-aws-be",
-  "main": "index.js",
-  "dependencies": {},
+  "description": "product-service",
+  "main": "handler.js",
+  "dependencies": {
+    "lodash": "^4.17.20"
+  },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
-    "serverless-plugin-webpack": "^1.5.1",
+    "serverless-webpack": "^5.3.5",
     "webpack": "^5.3.2",
     "webpack-node-externals": "^2.5.2"
   },

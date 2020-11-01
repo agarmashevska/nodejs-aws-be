@@ -5,5 +5,7 @@ module.exports = {
     entry: slsw.lib.entries,
     mode: slsw.lib.webpack.isLocal ? 'development' : 'production',
     target: 'node',
-    externals: [nodeExternals()]
+    externals: [nodeExternals({
+        allowlist: [/^lodash/]
+    })]
 };
