@@ -15,13 +15,18 @@
     - Main error scenarious are handled by API ("Product not found" error, try catch blocks are used in lambda handlers).
     
 2) Link to product-service API:
- - [products](https://uk86gb8i4h.execute-api.eu-west-1.amazonaws.com/dev/products/) :
- ```
-https://uk86gb8i4h.execute-api.eu-west-1.amazonaws.com/dev/products
-```
- - [product with id](https://uk86gb8i4h.execute-api.eu-west-1.amazonaws.com/dev/products/e1c9e732-c589-40c5-8623-d61b8f0b310b) :
-```
-https://uk86gb8i4h.execute-api.eu-west-1.amazonaws.com/dev/products/{productId}
-```
+     - [products](https://uk86gb8i4h.execute-api.eu-west-1.amazonaws.com/dev/products/) :
+     ```
+    https://uk86gb8i4h.execute-api.eu-west-1.amazonaws.com/dev/products
+    ```
+     - [product with id](https://uk86gb8i4h.execute-api.eu-west-1.amazonaws.com/dev/products/e1c9e732-c589-40c5-8623-d61b8f0b310b) :
+    ```
+    https://uk86gb8i4h.execute-api.eu-west-1.amazonaws.com/dev/products/{productId}
+    ```
 
-3) Link to FE MR - 
+3) Link to FE MR :
+    - [FE MR link](https://github.com/agarmashevska/nodejs-aws-fe/pull/2/files)
+    - [CloudFront link](https://doi1o5vi7eolr.cloudfront.net/)
+
+4) Link to SwaggerHUB:
+    - [Swagger documentation](https://app.swaggerhub.com/apis-docs/agarmashevska/product-service/1.0.0)

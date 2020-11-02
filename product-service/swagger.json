@@ -1,0 +1,147 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "Product service API",
+    "version" : "2020-11-02T00:35:42Z",
+    "title" : "dev-product-service",
+    "termsOfService" : "https://github.com/agarmashevska",
+    "contact" : {
+      "name" : "anniege",
+      "url" : "https://github.com/agarmashevska",
+      "email" : "agarmashevska@gmail.com"
+    },
+    "license" : {
+      "name" : "license",
+      "url" : "https://www.github.com"
+    }
+  },
+  "host" : "uk86gb8i4h.execute-api.eu-west-1.amazonaws.com",
+  "basePath" : "/dev",
+  "tags" : [ {
+    "name" : "getProductsListTag",
+    "description" : "getProductsList function tag"
+  }, {
+    "name" : "getProductByIdTag",
+    "description" : "getProductById function tag"
+  } ],
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/products" : {
+      "get" : {
+        "tags" : [ "getProductsListTag" ],
+        "summary" : "Gets all products",
+        "description" : "You can get all products.\n",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "schema" : {
+              "$ref" : "#/definitions/ProductsResponse"
+            }
+          },
+          "500" : {
+            "description" : "500 response",
+            "schema" : {
+              "$ref" : "#/definitions/500JsonResponse"
+            }
+          },
+          "404" : {
+            "description" : "404 response",
+            "schema" : {
+              "$ref" : "#/definitions/404JsonResponse"
+            }
+          }
+        }
+      }
+    },
+    "/products/{productId}" : {
+      "get" : {
+        "tags" : [ "getProductByIdTag" ],
+        "summary" : "Get product by id",
+        "description" : "You can get product by providing id as path param.",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "productId",
+          "in" : "path",
+          "description" : "product id",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "schema" : {
+              "$ref" : "#/definitions/ProductResponse"
+            }
+          },
+          "500" : {
+            "description" : "500 response",
+            "schema" : {
+              "$ref" : "#/definitions/500JsonResponse"
+            }
+          },
+          "404" : {
+            "description" : "404 response",
+            "schema" : {
+              "$ref" : "#/definitions/404JsonResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "500JsonResponse" : {
+      "type" : "object",
+      "properties" : {
+        "message" : {
+          "type" : "string"
+        },
+        "statusCode" : {
+          "type" : "number"
+        }
+      }
+    },
+    "ProductResponse" : {
+      "$ref" : "#/definitions/Product"
+    },
+    "Product" : {
+      "type" : "object",
+      "properties" : {
+        "price" : {
+          "type" : "number"
+        },
+        "count" : {
+          "type" : "number"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "id" : {
+          "type" : "string"
+        },
+        "title" : {
+          "type" : "string"
+        }
+      },
+      "description" : "Product model"
+    },
+    "404JsonResponse" : {
+      "type" : "object",
+      "properties" : {
+        "message" : {
+          "type" : "string"
+        },
+        "statusCode" : {
+          "type" : "number"
+        }
+      }
+    },
+    "ProductsResponse" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/Product"
+      }
+    }
+  }
+}

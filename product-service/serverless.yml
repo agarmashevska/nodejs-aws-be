@@ -10,11 +10,92 @@ provider:
 
 plugins:
   - serverless-webpack
+  - serverless-aws-documentation
 
 custom:
   webpack:
     webpackConfig: 'webpack.config.js'
     includeModules: true
+  documentation:
+    api:
+      info:
+        version: '2'
+        title: Product service API
+        description: Product service API
+        termsOfService: https://github.com/agarmashevska
+        contact:
+          name: anniege
+          url: https://github.com/agarmashevska
+          email: agarmashevska@gmail.com
+        license:
+          name: license
+          url: https://www.github.com
+      tags:
+        -
+          name: getProductsListTag
+          description: getProductsList function tag
+        -
+          name: getProductByIdTag
+          description: getProductById function tag
+    models:
+      -
+        name: Product
+        description: "Product model"
+        contentType: "application/json"
+        schema:
+          type: object
+          properties:
+            id:
+              type: string
+            title:
+              type: string
+            description:
+              type: string
+            price:
+              type: number
+            count:
+              type: number
+      -
+        name: ProductsResponse
+        contentType: "application/json"
+        schema:
+          type: array
+          items:
+            $ref: "{{model: Product}}"
+      -
+        name: ProductResponse
+        contentType: "application/json"
+        schema:
+          $ref: "{{model: Product}}"
+      -
+        name: 404JsonResponse
+        contentType: "application/json"
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+            statusCode:
+              type: number
+      -
+        name: 500JsonResponse
+        contentType: "application/json"
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+            statusCode:
+              type: number
+    commonModelSchemaFragments:
+      MethodResponse404Json:
+        statusCode: '404'
+        responseModels:
+          "application/json": 404JsonResponse
+      MethodResponse500Json:
+        statusCode: '500'
+        responseModels:
+          "application/json": 500JsonResponse
 
 functions:
   getAllProducts:
@@ -24,7 +105,19 @@ functions:
           path: products
           method: get
           cors: true
-
+          documentation:
+            summary: Gets all products
+            tags:
+              - getProductsListTag
+            description: >
+              You can get all products.
+            methodResponses:
+              -
+                statusCode: '200'
+                responseModels:
+                  "application/json": ProductsResponse
+              - ${self:custom.documentation.commonModelSchemaFragments.MethodResponse404Json}
+              - ${self:custom.documentation.commonModelSchemaFragments.MethodResponse500Json}
   getProductById:
     handler: handler.getProductById
     events:
@@ -36,3 +129,20 @@ functions:
             parameters:
               paths:
                 productId: true
+          documentation:
+            summary: Get product by id
+            tags:
+              - getProductByIdTag
+            description: You can get product by providing id as path param.
+            pathParams:
+              -
+                name: productId
+                description: product id
+                required: true
+            methodResponses:
+              -
+                statusCode: '200'
+                responseModels:
+                  "application/json": ProductResponse
+              - ${self:custom.documentation.commonModelSchemaFragments.MethodResponse404Json}
+              - ${self:custom.documentation.commonModelSchemaFragments.MethodResponse500Json}

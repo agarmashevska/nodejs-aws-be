@@ -9,13 +9,31 @@
   "devDependencies": {
     "@babel/cli": "^7.12.1",
     "@babel/core": "^7.12.3",
+    "@babel/plugin-transform-runtime": "^7.12.1",
     "@babel/preset-env": "^7.12.1",
+    "babel-jest": "^26.6.1",
+    "jest": "^26.6.1",
+    "serverless-aws-documentation": "^1.1.0",
     "serverless-webpack": "^5.3.5",
     "webpack": "^5.3.2",
     "webpack-node-externals": "^2.5.2"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
+  },
+  "jest": {
+    "modulePaths": ["src"],
+    "testPathIgnorePatterns": [
+      "node_modules"
+    ],
+    "testMatch": [
+      "**/tests/**/*.test.js"
+    ],
+    "transform": {
+      "\\.js$": "babel-jest"
+    },
+    "injectGlobals": true,
+    "testEnvironment": "node"
   },
   "repository": {
     "type": "git",
