@@ -2,7 +2,7 @@
   "swagger" : "2.0",
   "info" : {
     "description" : "Product service API",
-    "version" : "2020-11-02T00:35:42Z",
+    "version" : "2020-11-08T19:45:53Z",
     "title" : "dev-product-service",
     "termsOfService" : "https://github.com/agarmashevska",
     "contact" : {
@@ -52,6 +52,41 @@
             }
           }
         }
+      },
+      "post" : {
+        "tags" : [ "createProduct" ],
+        "summary" : "Create product",
+        "description" : "You can create product.",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "productRequest",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/productRequest"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "201 response",
+            "schema" : {
+              "$ref" : "#/definitions/CreateProductResponse"
+            }
+          },
+          "400" : {
+            "description" : "400 response",
+            "schema" : {
+              "$ref" : "#/definitions/400JsonResponse"
+            }
+          },
+          "500" : {
+            "description" : "500 response",
+            "schema" : {
+              "$ref" : "#/definitions/500JsonResponse"
+            }
+          }
+        }
       }
     },
     "/products/{productId}" : {
@@ -91,6 +126,28 @@
     }
   },
   "definitions" : {
+    "400JsonResponse" : {
+      "type" : "object",
+      "properties" : {
+        "message" : {
+          "type" : "string"
+        },
+        "statusCode" : {
+          "type" : "number"
+        }
+      }
+    },
+    "CreateProductResponse" : {
+      "type" : "object",
+      "properties" : {
+        "message" : {
+          "type" : "string"
+        },
+        "statusCode" : {
+          "type" : "number"
+        }
+      }
+    },
     "500JsonResponse" : {
       "type" : "object",
       "properties" : {
@@ -99,6 +156,23 @@
         },
         "statusCode" : {
           "type" : "number"
+        }
+      }
+    },
+    "productRequest" : {
+      "type" : "object",
+      "properties" : {
+        "price" : {
+          "type" : "number"
+        },
+        "count" : {
+          "type" : "number"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "title" : {
+          "type" : "string"
         }
       }
     },

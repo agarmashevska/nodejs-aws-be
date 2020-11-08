@@ -4,7 +4,9 @@
   "description": "product-service",
   "main": "handler.js",
   "dependencies": {
-    "lodash": "^4.17.20"
+    "dotenv": "^8.2.0",
+    "lodash": "^4.17.20",
+    "pg": "^8.4.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
@@ -14,6 +16,7 @@
     "babel-jest": "^26.6.1",
     "jest": "^26.6.1",
     "serverless-aws-documentation": "^1.1.0",
+    "serverless-dotenv-plugin": "^3.1.0",
     "serverless-webpack": "^5.3.5",
     "webpack": "^5.3.2",
     "webpack-node-externals": "^2.5.2"
@@ -22,7 +25,9 @@
     "test": "jest"
   },
   "jest": {
-    "modulePaths": ["src"],
+    "modulePaths": [
+      "src"
+    ],
     "testPathIgnorePatterns": [
       "node_modules"
     ],
