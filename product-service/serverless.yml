@@ -8,9 +8,17 @@ provider:
   stage: dev
   region: eu-west-1
 
+  environment:
+    PG_HOST: process.env.PG_HOST
+    PG_PORT: process.env.PG_PORT
+    PG_DATABASE: process.env.PG_DATABASE
+    PG_USERNAME: process.env.PG_USERNAME
+    PG_PASSWORD: process.env.PG_PASSWORD
+
 plugins:
   - serverless-webpack
   - serverless-aws-documentation
+  - serverless-dotenv-plugin
 
 custom:
   webpack:
@@ -63,12 +71,46 @@ custom:
           items:
             $ref: "{{model: Product}}"
       -
+        name: CreateProductResponse
+        contentType: "application/json"
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+            statusCode:
+              type: number
+      -
+        name: productRequest
+        contentType: "application/json"
+        schema:
+          type: object
+          properties:
+            title:
+              type: string
+            description:
+              type: string
+            price:
+              type: number
+            count:
+              type: number
+      -
         name: ProductResponse
         contentType: "application/json"
         schema:
           $ref: "{{model: Product}}"
       -
         name: 404JsonResponse
+        contentType: "application/json"
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+            statusCode:
+              type: number
+      -
+        name: 400JsonResponse
         contentType: "application/json"
         schema:
           type: object
@@ -88,6 +130,10 @@ custom:
             statusCode:
               type: number
     commonModelSchemaFragments:
+      MethodResponse400Json:
+        statusCode: '400'
+        responseModels:
+          "application/json": 400JsonResponse
       MethodResponse404Json:
         statusCode: '404'
         responseModels:
@@ -145,4 +191,26 @@ functions:
                 responseModels:
                   "application/json": ProductResponse
               - ${self:custom.documentation.commonModelSchemaFragments.MethodResponse404Json}
+              - ${self:custom.documentation.commonModelSchemaFragments.MethodResponse500Json}
+  createProduct:
+    handler: handler.createProduct
+    events:
+      - http:
+          path: products
+          method: post
+          cors: true
+          documentation:
+            summary: Create product
+            tags:
+              - createProduct
+            description: You can create product.
+            consumes:
+              - application/json
+            requestModels:
+              "application/json": productRequest
+            methodResponses:
+              - statusCode: '201'
+                responseModels:
+                  "application/json": CreateProductResponse
+              - ${self:custom.documentation.commonModelSchemaFragments.MethodResponse400Json}
               - ${self:custom.documentation.commonModelSchemaFragments.MethodResponse500Json}
