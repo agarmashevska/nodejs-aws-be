@@ -4,39 +4,37 @@ import { BUCKET } from './common/constants'
 import { corsHeaders } from "./common/headers";
 const csv = require('csv-parser')
 
-const importFile = (s3, key, params) => {
-    return new Promise((resolve, reject) => {
-        const s3Stream = s3.getObject(params).createReadStream();
-        s3Stream
-            .pipe(csv())
-            .on('error', (error) => {
-                console.error(`ImportFileParser error: ${error.message}`)
-                reject(error)
-            })
-            .on('data', (data) => {
-                console.log(`ImportFileParser data: ${data}`);
-            })
-            .on('end', async () => {
-                console.log(`ImportFileParser key: ${key}`)
-                const destinationKey = key.replace('uploaded', 'parsed')
-                console.log(`ImportFileParser destination key: ${destinationKey}`)
+const importFile = (s3, key, params) => new Promise((resolve, reject) => {
+    const s3Stream = s3.getObject(params).createReadStream();
+    s3Stream
+        .pipe(csv())
+        .on('error', (error) => {
+            console.error(`ImportFileParser error: ${error.message}`)
+            reject(error)
+        })
+        .on('data', (data) => {
+            console.log(`ImportFileParser data: ${data}`);
+        })
+        .on('end', async () => {
+            console.log(`ImportFileParser key: ${key}`)
+            const destinationKey = key.replace('uploaded', 'parsed')
+            console.log(`ImportFileParser destination key: ${destinationKey}`)
 
-                await s3
-                    .copyObject({
-                        Bucket: BUCKET,
-                        CopySource: `${BUCKET}/${params.Key}`,
-                        Key: destinationKey,
-                    })
-                    .promise();
-                console.log(`ImportFileParser - file was copied`)
-                await s3
-                    .deleteObject(params)
-                    .promise();
-                console.log(`ImportFileParser - file was deleted`)
-                resolve();
-            });
-    });
-}
+            await s3
+                .copyObject({
+                    Bucket: BUCKET,
+                    CopySource: `${BUCKET}/${params.Key}`,
+                    Key: destinationKey,
+                })
+                .promise();
+            console.log(`ImportFileParser - file was copied`)
+            await s3
+                .deleteObject(params)
+                .promise();
+            console.log(`ImportFileParser - file was deleted`)
+            resolve();
+        });
+})
 
 export const importFileParser = async (event) => {
     try {
@@ -54,11 +52,11 @@ export const importFileParser = async (event) => {
         }
 
         return {
-            statusCode: 200,
+            statusCode: 202,
             headers: corsHeaders,
             body: JSON.stringify({
-               status: 200,
-               message: `Specified file was copied and parsed`
+               status: 202,
+               message: `Specified file was being processed`
             })
         }
     } catch (e) {
