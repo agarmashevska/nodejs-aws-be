@@ -25,8 +25,7 @@ provider:
     - Effect: "Allow"
       Action: "sqs:*"
       Resource:
-        - "${cf:import-service-${self:provider:stage}:SQSQueueArn}"
-
+        - Fn::GetAtt: [ SQSQueue, Arn ]
 
 resources:
   Resources:
@@ -37,9 +36,11 @@ resources:
   Outputs:
     SQSQueueArn:
       Value:
-        - Fn::GetAtt: [ SQSQueue, Arn ]
+        Fn::GetAtt:
+          - SQSQueue
+          - Arn
       Export:
-        Name: "SQSQueueArn"
+        Name: SQSQueueArn
 
 plugins:
   - serverless-webpack
