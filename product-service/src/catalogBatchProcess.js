@@ -1,14 +1,15 @@
 import AWS from 'aws-sdk'
 import { filter } from 'lodash/fp'
 import {invoke, QUERIES} from "./db";
-import {corsHeaders, isProductValid} from "./common";
+import { isProductValid } from "./common";
 
 export const catalogBatchProcess = async (event) => {
     console.log(`CatalogBatchProcess event: ${JSON.stringify(event.Records)}`);
     const client = await invoke()
+    if (!client) throw new Error('Could not connect to db')
     const sns = new AWS.SNS({ region: 'eu-west-1' });
     const rawProducts = event.Records.map(({ body }) => JSON.parse(body));
-    console.log(`CatalogBatchProcess products: ${JSON.stringify(products)}`)
+    console.log(`CatalogBatchProcess products: ${JSON.stringify(rawProducts)}`)
     const products = filter(isProductValid, rawProducts)
 
     try {
