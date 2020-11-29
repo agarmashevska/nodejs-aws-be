@@ -36,3 +36,5 @@ select insVals('Pink roses', 'Beautiful bouquet of pink roses', 27, 91);
 select title, description, price, count from products p2 
 inner join stocks s2 on p2.id = s2.product_id 
 
+DELETE from stocks
+DELETE from products
