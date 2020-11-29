@@ -15,10 +15,10 @@ const dbOptions = {
 }
 
 export const invoke = async () => {
-    const client = new Client(dbOptions);
-    await client.connect();
+        const client = new Client(dbOptions);
+        await client.connect();
 
-    return client
+        return client
 }
 
 export const QUERIES = {

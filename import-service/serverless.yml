@@ -8,6 +8,10 @@ provider:
   stage: dev
   region: eu-west-1
 
+  environment:
+    SQS_URL:
+      Ref: SQSQueue
+
   iamRoleStatements:
     - Effect: "Allow"
       Action: "s3:ListBucket"
@@ -18,6 +22,25 @@ provider:
         - "s3:*"
       Resource:
         - "arn:aws:s3:::aws-nodejs-uploaded/*"
+    - Effect: "Allow"
+      Action: "sqs:*"
+      Resource:
+        - Fn::GetAtt: [ SQSQueue, Arn ]
+
+resources:
+  Resources:
+    SQSQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: aws-nodejs-product-import-queue
+  Outputs:
+    SQSQueueArn:
+      Value:
+        Fn::GetAtt:
+          - SQSQueue
+          - Arn
+      Export:
+        Name: SQSQueueArn
 
 plugins:
   - serverless-webpack
@@ -49,3 +72,4 @@ functions:
             - prefix: uploaded/
             - suffix: .csv
           existing: true
+
