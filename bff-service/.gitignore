@@ -1,0 +1,9 @@
+node_modules
+npm-debug.log
+.idea
+.env
+.ebextensions
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+
